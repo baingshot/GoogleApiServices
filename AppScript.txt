@@ -1,0 +1,28 @@
+function onOpen() {
+
+var SpreadSheet = SpreadsheetApp.getActiveSpreadsheet();  
+var textStyle = Charts.newTextStyle().setFontName('Ariel').setFontSize(20).build();
+ 
+for( var i =0 ; i< SpreadSheet.getSheets().length; i++ )
+{
+SpreadsheetApp.setActiveSheet(SpreadSheet.getSheets()[i]);  
+var sheet = SpreadsheetApp.getActiveSheet();
+  
+var charts = sheet.getCharts();
+  if (charts.length == 0) {
+    var chart = sheet.newChart()
+    .setPosition(5, 6, 5, 5)
+    .setChartType(Charts.ChartType.LINE)
+    .setOption('title', 'AB/BC/CD/FG/HI')   
+    .addRange(sheet.getRange(1, 2, sheet.getLastRow(), 3) )
+    .addRange(sheet.getRange(1, 7, sheet.getLastRow(), 1) )
+    .addRange(sheet.getRange(1, 9, sheet.getLastRow(), 1) )
+    .asLineChart()
+    .setTitleTextStyle( textStyle )
+    .setYAxisTitleTextStyle( textStyle ).setYAxisTitle("Time, ms")  
+    .build(); 
+    sheet.insertChart(chart);
+  }
+}   
+
+}
